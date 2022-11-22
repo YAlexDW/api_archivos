@@ -1,12 +1,14 @@
 let moment = require ("moment")
 let files = require ("../models/Files")
 let fs = require("fs")
-let path = require ("path")
+let path = require("path")
 const multer = require(`multer`);
 const Files = require("../models/Files");
+const { Router } = require("express");
 moment.locale('es')
 
 let fecha_subida = moment()
+let router = require()
 
 const storage = multer.diskStorage(
     {
@@ -21,38 +23,77 @@ const storage = multer.diskStorage(
     }
 )
 const CreateFiles = (req,res)=>{
-    let params= req.bod;
+    router.get("/files/",(req, res, next) => {
+            let body = req.body;
+            console.log(body)
+            res.send("Cheking user...");
+})
+    let params= req.body;
+    console.log(params)
     let files = new Files();
     if(
-        params.id_user &&
-        params.rut &&
-        params.camara_comercio &&
-        params.cc_representante_legal &&
-        params.certificacion_bancaria &&
-        params.certificaciones_producto_fechatecnica &&
-        params.Plantilla_seguridad &&
-        params.matricula_profesional &&
-        params.certificado_experiencia &&
-        params.fecha_subida 
-    ){
-        let imagespath = req.files.image.path;
-        let filename = id_user + imagespath;
-        let routeserve = "./upload/Files_provedor" + filename + path.extname(imagespath);
-        fs.fs.createReadStream(imagesPath).pipe(fs.createWriteStream(routeserve));
-        let image = filename + path.extname(imagesPath).toLowerCase();
+        params.id_user 
 
-        Files.id_user = params.id_user;
-        Files.rut = params.rut;
-        Files.camara_comercio = params.camara_comercio;
-        Files.cc_representante_legal = params.cc_representante_legal;
-        Files.certificacion_bancaria = params.certificacion_bancaria;
-        Files.certificaciones_producto_fechatecnica = params.certificaciones_producto_fechatecnica;
-        Files.Plantilla_seguridad = params.Plantilla_seguridad;
-        Files.matricula_profesional = params.matricula_profesional;
-        Files.certificado_experiencia = params.certificado_experiencia;
-        Files.fecha_subida = params.fecha_subida + moment;
+    ){ 
+        let rut_path = req.files.rut.path;
+        let rut_name = "rut_" + params.id_user;
+        let rut_routeserve = "./upload/Files_provedor/" + rut_name + path.extname(rut_path);
+        fs.createReadStream(rut_path).pipe(fs.createWriteStream(rut_routeserve));
+        let rut = rut_name + path.extname(rut_path).toLowerCase();
 
-        Files.save((err, datafile) => {
+        let camara_comercio_path = req.files.camara_comercio.path;
+        let camara_comercio_name = "camara_comercio_" + params.id_user;
+        let camara_comercio_routeserve = "./upload/Files_provedor/" +  camara_comercio_name + path.extname(camara_comercio_path);
+        fs.createReadStream(camara_comercio_path).pipe(fs.createWriteStream(camara_comercio_routeserve));
+        let camara_comercio =  camara_comercio_name + path.extname(camara_comercio_path).toLowerCase();
+
+        let cc_representante_legal_path = req.files.cc_representante_legal.path;
+        let cc_representante_legal_name = "cc_representante_legal_" + params.id_user;
+        let cc_representante_legal_routeserve = "./upload/Files_provedor/" + cc_representante_legal_name + path.extname(cc_representante_legal_path);
+        fs.createReadStream(cc_representante_legal_path).pipe(fs.createWriteStream(cc_representante_legal_routeserve));
+        let cc_representante_legal = cc_representante_legal_name + path.extname(cc_representante_legal_path).toLowerCase();
+
+        let certificacion_bancaria_path = req.files.certificacion_bancaria.path;
+        let certificacion_bancaria_name = "certificacion_bancaria_" + params.id_user;
+        let certificacion_bancaria_routeserve = "./upload/Files_provedor/" + certificacion_bancaria_name + path.extname(certificacion_bancaria_path);
+        fs.createReadStream(certificacion_bancaria_path).pipe(fs.createWriteStream(certificacion_bancaria_routeserve));
+        let certificacion_bancaria = certificacion_bancaria_name + path.extname(certificacion_bancaria_path).toLowerCase();
+
+        let certificaciones_producto_fechatecnica_path = req.files.certificaciones_producto_fechatecnica.path;
+        let certificaciones_producto_fechatecnica_name = "certificaciones_producto_fechatecnica_" + params.id_user;
+        let certificaciones_producto_fechatecnica_routeserve = "./upload/Files_provedor/" + certificaciones_producto_fechatecnica_name + path.extname(certificaciones_producto_fechatecnica_path);
+        fs.createReadStream(certificaciones_producto_fechatecnica_path).pipe(fs.createWriteStream(certificaciones_producto_fechatecnica_routeserve));
+        let certificaciones_producto_fechatecnica = certificaciones_producto_fechatecnica_name + path.extname(certificaciones_producto_fechatecnica_path).toLowerCase();
+
+        let Plantilla_seguridad_path = req.files.Plantilla_seguridad.path;
+        let Plantilla_seguridad_name = "Plantilla_seguridad_" + params.id_user;
+        let Plantilla_seguridad_routeserve = "./upload/Files_provedor/" + Plantilla_seguridad_name + path.extname(Plantilla_seguridad_path);
+        fs.createReadStream(Plantilla_seguridad_path).pipe(fs.createWriteStream(Plantilla_seguridad_routeserve));
+        let Plantilla_seguridad = Plantilla_seguridad_name + path.extname(Plantilla_seguridad_path).toLowerCase();
+
+        let matricula_profesional_path = req.files.matricula_profesional.path;
+        let matricula_profesional_name = "matricula_profesional_" + params.id_user;
+        let matricula_profesional_routeserve = "./upload/Files_provedor/" + matricula_profesional_name + path.extname(matricula_profesional_path);
+        fs.createReadStream(matricula_profesional_path).pipe(fs.createWriteStream(matricula_profesional_routeserve));
+        let matricula_profesional = matricula_profesional_name + path.extname(matricula_profesional_path).toLowerCase();
+
+        let certificado_experiencia_path = req.files.certificado_experiencia.path;
+        let certificado_experiencia_name = "certificado_experiencia_" + params.id_user;
+        let certificado_experiencia_routeserve = "./upload/Files_provedor/" + certificado_experiencia_name + path.extname(certificado_experiencia_path);
+        fs.createReadStream(certificado_experiencia_path).pipe(fs.createWriteStream(certificado_experiencia_routeserve));
+        let certificado_experiencia = certificado_experiencia_name + path.extname(certificado_experiencia_path).toLowerCase();
+
+        files.id_user = params.id_user ;
+        files.rut = rut ;
+        files.camara_comercio = camara_comercio ;
+        files.cc_representante_legal = cc_representante_legal ;
+        files.certificacion_bancaria = certificacion_bancaria ;
+        files.certificaciones_producto_fechatecnica = certificaciones_producto_fechatecnica ;
+        files.Plantilla_seguridad = Plantilla_seguridad ;
+        files.matricula_profesional = matricula_profesional ;
+        files.certificado_experiencia = certificado_experiencia 
+
+        files.save((err, datafile) => {
             if (err) {
                 res.status(500).send({mensaje: "error al guardar"});
             } else {
@@ -96,37 +137,30 @@ const getfileid = (req,res)=> {
     })
 }
 
-    
+const updateFiles = (req,res) =>{
+    console.log(req.body);
+}
 
 
-const updateFiles = (req, res) => {
+/* const updateFiles = (req, res) => {
     console.log(req.body);
     let params = req.body;
     let id = req.params["id"];
     let img = req.params["img"];
 
     if (
-        params.id_user &&
-        params.rut &&
-        params.camara_comercio &&
-        params.cc_representante_legal &&
-        params.certificacion_bancaria &&
-        params.certificaciones_producto_fechatecnica &&
-        params.Plantilla_seguridad &&
-        params.matricula_profesional &&
-        params.certificado_experiencia &&
-        params.fecha_subida 
+        params.id_user
     ){
 
-        let imagesPath = req.files.image.path;
-        let filename = id_user + imagespath;
-        var routeServe =
-            "./upload/Files_provedor/" + filename + path.extname(imagesPath);
-        fs.createReadStream(imagePath).pipe(fs.createWriteStream(routeServe));
-        let IMG = filename + path.extname(imagesPath);
+        let rut_Path = req.files.rut.path;
+        let rut_name = id_user + rut_path;
+        var rut_routeServe =
+            "./upload/Files_provedor/" + filename + path.extname(rut_Path);
+        fs.createReadStream(rut_Path).pipe(fs.createWriteStream(rut_routeServe));
+        let img = rut_name + path.extname(rut_Path);
         console.log(params);
-        console.log(IMG);
-        Product.findByIdAndUpdate(
+        console.log(img);
+        files.findByIdAndUpdate(
             { _id: id },
             {
             id_user: params.id_user,
@@ -156,7 +190,7 @@ const updateFiles = (req, res) => {
         } else {
         res.status(401).send({ mensaje: "Falto algunas imagenes" });
         }
-    };
+    }; */
 
     const getfilesbyid = (req,res)=> {
         let id = req.params["id_user"];
@@ -176,7 +210,7 @@ const updateFiles = (req, res) => {
                 res.status(500).send({mensaje: "error al conectar al servidor"});
             } else {
             if (fileData) {
-                fs.unlink("./upload/Files_provedor/" + fileData.image, (err) => {
+                fs.unlink("./upload/Files_provedor/" + fileData.rut, (err) => {
                     if (err) throw err;
                 });   
                 res.status(200).send({product: fileData});

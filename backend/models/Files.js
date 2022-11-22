@@ -12,8 +12,8 @@ let files = new Schema({
     Plantilla_seguridad: String,
     matricula_profesional: String,
     certificado_experiencia: String,
-    fecha_subida: String,
-    fecha_update: Date
+    fecha_subida: { type: Date, default: Date.now },
+    fecha_update: { type: Date, default: Date.now }
 });
 
 module.exports= mongoose.model("Files", files);
